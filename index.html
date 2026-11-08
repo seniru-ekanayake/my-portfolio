@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seniru Ekanayake | Security Detection &amp; Agentic AI</title>
+<meta name="description" content="Cybersecurity engineer building agentic, AI-powered detection and response systems. SOC operations, MITRE ATT&CK, MCP, Google ADK, Vertex AI.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Seniru Ekanayake — Security Detection & Agentic AI">
+<meta property="og:description" content="Building agentic, AI-powered detection and response systems.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000'/%3E%3Cpath d='M5 25L16 6l11 19h-6l-5-8-5 8z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--card:#0b0b0b;--line:#1c1c1c;--line2:#2b2b2b;--mute:#a1a1a1;--dim:#6b6b6b;
+ --sans:'Geist',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+ --noise:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:var(--sans);font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:#fff;color:#000}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+section{padding:96px 0}
+.lab{font-size:13.5px;color:var(--mute);margin-bottom:18px}
+h2{font-weight:400;font-size:clamp(28px,3.6vw,46px);line-height:1.14;letter-spacing:-.028em}
+h2.c{text-align:center;max-width:760px;margin:0 auto}
+.p{color:var(--mute);font-size:16.5px}
+.rule{max-width:1124px;margin:0 auto;height:1px;background:var(--line2);position:relative}
+.rule::before,.rule::after{content:"";position:absolute;top:-2px;width:5px;height:5px;border-radius:50%;background:#555}
+.rule::before{left:0}.rule::after{right:0}
+.rulew{padding:0 28px}
+
+.btn{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;font-family:inherit;font-size:14px;font-weight:500;padding:10px 20px;border-radius:999px;border:1px solid var(--line2);background:#000;color:#fff;cursor:pointer;transition:.25s}
+.btn:hover{background:#151515;border-color:#444}
+.btn.w{background:#fff;color:#000;border-color:#fff}.btn.w:hover{background:#dcdcdc}
+.btn.sm{padding:8px 16px;font-size:13px}
+
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;height:65px;background:rgba(0,0,0,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .in{max-width:1500px;height:100%;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;font-weight:600;letter-spacing:.14em;font-size:17px}
+.logo svg{width:26px;height:26px}
+.links{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500}
+.links a:not(.btn){color:#e8e8e8;transition:color .2s}.links a:not(.btn):hover{color:var(--dim)}
+@media(max-width:900px){.links a:not(.btn){display:none}}
+#bar{position:fixed;top:0;left:0;height:1px;background:#fff;width:0;z-index:100}
+
+/* grain gradients */
+.gx{position:relative;isolation:isolate;overflow:hidden}
+.gx::after{content:"";position:absolute;inset:0;background:var(--noise);opacity:.32;mix-blend-mode:overlay;pointer-events:none;z-index:0}
+.g1{background:radial-gradient(60% 70% at 18% 18%,#6ee0a0,transparent 62%),radial-gradient(70% 60% at 88% 30%,#1f8a9c,transparent 62%),radial-gradient(60% 60% at 40% 105%,#d4a94c,transparent 62%),#0b3a2c}
+.g2{background:radial-gradient(60% 70% at 20% 15%,#8b6cff,transparent 62%),radial-gradient(70% 60% at 90% 40%,#2f6dff,transparent 62%),radial-gradient(60% 60% at 30% 105%,#e079d4,transparent 62%),#190f42}
+.g3{background:radial-gradient(60% 70% at 85% 15%,#ffb35c,transparent 62%),radial-gradient(70% 60% at 10% 40%,#f0522e,transparent 62%),radial-gradient(60% 60% at 60% 105%,#ffd9a0,transparent 62%),#3d1406}
+.g4{background:radial-gradient(60% 70% at 15% 20%,#3fd0cf,transparent 62%),radial-gradient(70% 60% at 90% 25%,#2b5fe0,transparent 62%),radial-gradient(60% 60% at 50% 105%,#a3ea7e,transparent 62%),#06303a}
+.g5{background:radial-gradient(60% 70% at 80% 18%,#ff7aa8,transparent 62%),radial-gradient(70% 60% at 10% 45%,#8a5cf5,transparent 62%),radial-gradient(60% 60% at 55% 105%,#f4c26a,transparent 62%),#2a0f2e}
+
+.card{position:relative;border:1px solid var(--line2);border-radius:26px;background:var(--card);overflow:hidden;transition:border-color .3s}
+.card:not(.gx)::after{content:"";position:absolute;inset:0;background:var(--noise);opacity:.035;pointer-events:none;mix-blend-mode:screen}
+.pill{display:inline-block;font-size:12px;font-weight:500;padding:5px 12px;border-radius:999px;background:#000;border:1px solid var(--line2);color:#fff;position:relative;z-index:2}
+
+/* window */
+.win{position:relative;z-index:1;background:rgba(6,6,6,.92);border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;font-family:var(--mono);font-size:12.5px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.wh{display:flex;gap:6px;align-items:center;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.1);color:#8a8a8a;font-size:11.5px}
+.wh i{width:9px;height:9px;border-radius:50%;background:#2e2e2e}.wh span{margin-left:10px}
+.wb{padding:18px;color:#c9c9c9;line-height:1.95}
+.wb .a{color:#fff}.wb .d{color:#707070}.wb .ok{color:#7ee2a0}.wb .w{color:#f4c26a}.wb .r{color:#ff7a7a}
+.cur{display:inline-block;width:7px;height:13px;background:#fff;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+
+/* hero */
+.hero{position:relative;padding:150px 0 40px;text-align:center;overflow:hidden}
+.hero .orb{position:absolute;left:50%;top:-8%;transform:translateX(-50%);width:min(760px,100vw);aspect-ratio:1.25;z-index:0;pointer-events:none;
+ background:radial-gradient(40% 46% at 50% 38%,rgba(255,130,40,.78),transparent 70%),radial-gradient(30% 34% at 36% 50%,rgba(255,196,110,.5),transparent 70%),radial-gradient(28% 30% at 66% 44%,rgba(214,70,30,.55),transparent 70%);filter:blur(26px);opacity:.82}
+.hero .grain{position:absolute;left:50%;top:0;transform:translateX(-50%);width:min(760px,100vw);height:520px;background:var(--noise);opacity:.2;mix-blend-mode:overlay;z-index:0;pointer-events:none;mask-image:radial-gradient(50% 50% at 50% 40%,#000,transparent 75%);-webkit-mask-image:radial-gradient(50% 50% at 50% 40%,#000,transparent 75%)}
+.hero>.wrap{position:relative;z-index:1}
+h1{font-weight:500;font-size:clamp(40px,6.6vw,84px);line-height:1.02;letter-spacing:-.04em;max-width:880px;margin:0 auto;text-shadow:0 2px 40px rgba(0,0,0,.35)}
+.hero .p{max-width:560px;margin:24px auto 0;font-size:18px;color:#d0d0d0}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.hero .sub{margin-top:24px;display:flex;gap:26px;justify-content:center;flex-wrap:wrap;font-size:13px;color:var(--mute)}
+.console{margin:70px auto 0;max-width:1100px;border:1px solid var(--line2);border-radius:20px;background:#050505;overflow:hidden;text-align:left;box-shadow:0 0 0 8px rgba(255,255,255,.015)}
+.chead{display:flex;align-items:center;gap:7px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim);font-family:var(--mono)}
+.chead i{width:9px;height:9px;border-radius:50%;background:#2b2b2b}.chead span{margin-left:12px}
+.cbody{display:grid;grid-template-columns:190px 1fr 270px;min-height:380px}
+.cside{border-right:1px solid var(--line);padding:16px 12px;font-size:13px;color:var(--mute);display:grid;gap:3px;align-content:start}
+.cside div{padding:8px 12px;border-radius:8px}.cside .on{background:#141414;color:#fff}
+.cmain{padding:22px;display:flex;align-items:center;justify-content:center}
+.cright{border-left:1px solid var(--line);padding:16px;font-family:var(--mono);font-size:12px;color:var(--mute)}
+.cright .t{color:#fff;margin-bottom:10px;font-size:12px}
+.fnd{padding:10px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.fnd b{font-weight:400;color:#fff}.fnd em{font-style:normal;font-size:10.5px;padding:2px 8px;border-radius:99px;border:1px solid var(--line2)}
+@media(max-width:860px){.cbody{grid-template-columns:1fr}.cside,.cright{display:none}}
+
+/* heading row */
+.hrow{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.hrow .p{padding-top:34px;max-width:520px}
+.hrow.l .p{padding-top:0}
+@media(max-width:860px){.hrow{grid-template-columns:1fr;gap:20px}.hrow .p{padding-top:0}}
+
+/* compare */
+.cmp{margin-top:56px;display:grid;grid-template-columns:1fr 1fr}
+.cmp>div{padding:26px 28px}
+.cmp>div+div{border-left:1px solid var(--line2)}
+.cmp h4{font-weight:500;font-size:14px;color:var(--mute);margin-bottom:14px;display:flex;justify-content:space-between;font-family:var(--mono);letter-spacing:.04em}
+.cr{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-top:1px solid var(--line);font-size:14.5px;color:#d6d6d6;position:relative;z-index:1}
+.cr span{font-family:var(--mono);font-size:11.5px;color:var(--dim);white-space:nowrap}
+.cmp .hi .cr span{color:#7ee2a0}
+.cmp .cap{grid-column:1/-1;border-top:1px solid var(--line2);padding:16px 28px;color:var(--mute);font-size:14px;border-left:0!important}
+@media(max-width:760px){.cmp{grid-template-columns:1fr}.cmp>div+div{border-left:0;border-top:1px solid var(--line2)}}
+
+/* feature pair */
+.fpair{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fcard{padding:0;display:flex;flex-direction:column}
+.fvis{padding:46px 36px;min-height:360px;display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid var(--line2)}
+.fvis.white{background:#fff;color:#000}
+.fvis.white::after{display:none}
+.fcap{padding:22px 26px 26px;position:relative;z-index:1}
+.fcap b{font-weight:500;font-size:15px;display:block}
+.fcap span{color:var(--mute);font-size:14px}
+.bars{width:100%;max-width:440px;color:#000}
+.bars .h{display:flex;justify-content:space-between;font-size:12.5px;color:#666;margin-bottom:22px}
+.bar{margin:18px 0}
+.bar .t{display:flex;justify-content:space-between;font-size:14px;margin-bottom:8px}
+.bar .t b{font-weight:500}
+.bar .tr{height:10px;border-radius:99px;background:#ececec;overflow:hidden}
+.bar .tr i{display:block;height:100%;width:0;border-radius:99px;background:#000;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
+@media(max-width:860px){.fpair{grid-template-columns:1fr}}
+
+/* showcase */
+.tabrow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:56px}
+.tb{all:unset;box-sizing:border-box;cursor:pointer;padding:18px 18px 18px 0;border-top:1px solid var(--line2);position:relative}
+.tb b{display:block;font-weight:500;font-size:15px;color:var(--dim);transition:color .25s}
+.tb span{display:block;font-size:13px;color:#555;margin-top:4px;line-height:1.4}
+.tb::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:#fff;transition:width .5s}
+.tb.on::before{width:100%}.tb.on b{color:#fff}.tb:hover b{color:#ddd}
+.show{margin-top:6px;display:none;grid-template-columns:1.05fr 1fr}
+.show.on{display:grid;animation:fade .5s ease}
+.sinfo{padding:42px;position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
+.sinfo .k{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+.sinfo h3{font-weight:400;font-size:clamp(26px,3vw,38px);letter-spacing:-.03em;line-height:1.1;margin:14px 0}
+.sinfo p{color:var(--mute);font-size:15.5px}
+.sinfo ul{list-style:none;margin:20px 0;display:grid;gap:9px}
+.sinfo li{font-size:14px;color:#d2d2d2;padding-left:18px;position:relative}
+.sinfo li::before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:#555}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11.5px;padding:4px 11px;border-radius:999px;border:1px solid var(--line2);color:var(--mute)}
+.sinfo .btn{margin-top:26px}
+.sdia{padding:34px;display:flex;align-items:center;justify-content:center;min-height:420px}
+.sdia .win{width:100%;max-width:380px}
+.sdia .wb{padding:18px 16px}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:22px}
+.dots i{width:6px;height:6px;border-radius:50%;background:#333;transition:.3s}.dots i.on{background:#fff;width:20px;border-radius:99px}
+.nd rect{fill:#060606;stroke:#383838}
+.nd text{fill:#d6d6d6;font-family:'JetBrains Mono',monospace;font-size:11px;text-anchor:middle}
+.nd.hot rect{fill:#fff;stroke:#fff}.nd.hot text{fill:#000}
+.edge{fill:none;stroke:#2c2c2c;stroke-width:1.2}
+.flow{fill:none;stroke:#fff;stroke-width:1.2;stroke-dasharray:2 10;stroke-linecap:round;animation:dash 1.4s linear infinite;opacity:.8}
+@media(max-width:900px){.tabrow{grid-template-columns:repeat(5,170px);overflow-x:auto}.show.on{grid-template-columns:1fr}.sinfo{padding:28px}}
+
+/* automate */
+.auto{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+.auto h2{margin-bottom:30px}
+.auto ul{list-style:none;display:grid;gap:12px}
+.auto li{font-size:16px;color:#e4e4e4;padding-left:22px;position:relative}
+.auto li::before{content:"";position:absolute;left:2px;top:11px;width:5px;height:5px;border-radius:50%;background:#777}
+.auto .gx{border-radius:26px;border:1px solid rgba(255,255,255,.1);padding:46px 36px}
+@media(max-width:900px){.auto{grid-template-columns:1fr;gap:34px}}
+
+/* experience */
+.xp{display:grid;grid-template-columns:1.35fr 1fr;gap:20px;margin-top:50px}
+.xc{padding:34px}
+.xc .k{font-family:var(--mono);font-size:11.5px;color:var(--dim);letter-spacing:.08em}
+.xc h3{font-weight:400;font-size:25px;letter-spacing:-.025em;margin:12px 0 2px;position:relative;z-index:1}
+.xc .org{color:var(--mute);font-size:15px;position:relative;z-index:1}
+.xc ul{list-style:none;margin-top:20px;display:grid;gap:11px;position:relative;z-index:1}
+.xc li{color:#c6c6c6;font-size:14.5px;padding-left:18px;position:relative}
+.xc li::before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:#777}
+@media(max-width:860px){.xp{grid-template-columns:1fr}}
+
+/* spheres */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sc{padding:18px 20px 24px;min-height:330px;display:flex;flex-direction:column}
+.sc canvas{width:104px;height:104px;margin:30px auto 0;display:block;position:relative;z-index:1}
+.sc .big{margin-top:auto;font-size:42px;font-weight:300;letter-spacing:-.04em;line-height:1;position:relative;z-index:1}
+.sc p{color:var(--mute);font-size:13.5px;margin-top:10px;position:relative;z-index:1}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:60px;align-items:stretch}
+.srow .l{display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+@media(max-width:900px){.srow{grid-template-columns:1fr;gap:34px}}@media(max-width:640px){.three{grid-template-columns:1fr}}
+
+/* principles masonry */
+.mason{columns:3;column-gap:16px;margin-top:56px}
+.pc{break-inside:avoid;margin-bottom:16px;border-radius:26px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;gap:34px;border:1px solid rgba(255,255,255,.1);transition:transform .4s}
+.pc:hover{transform:translateY(-4px)}
+.pc>*{position:relative;z-index:1}
+.pc q{quotes:none;font-weight:400;font-size:clamp(18px,1.7vw,22px);line-height:1.28;letter-spacing:-.02em;text-shadow:0 1px 18px rgba(0,0,0,.25)}
+.pc small{font-size:12.5px;color:rgba(255,255,255,.85)}
+.pc small b{font-weight:500;display:block;color:#fff}
+.pc.t{min-height:330px}.pc.m{min-height:240px}.pc.s{min-height:190px}
+@media(max-width:900px){.mason{columns:2}}@media(max-width:600px){.mason{columns:1}}
+
+/* updates */
+.uhead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.arts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.art{display:flex;flex-direction:column;border-radius:22px}
+.cover{aspect-ratio:16/9;position:relative;border-bottom:1px solid var(--line2);transition:filter .4s}
+.art:hover .cover{filter:saturate(1.25) brightness(1.08)}
+.cover .pill{position:absolute;left:14px;top:14px;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border-color:rgba(255,255,255,.2)}
+.cover .big{position:absolute;left:18px;bottom:14px;z-index:1;font-weight:500;font-size:clamp(24px,2.6vw,32px);letter-spacing:-.03em;line-height:1;text-shadow:0 2px 24px rgba(0,0,0,.3)}
+.art .bd{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
+.art h3{font-weight:500;font-size:17px;line-height:1.3;letter-spacing:-.012em}
+.art p{color:var(--mute);font-size:13.5px;margin:9px 0 18px}
+.art .ft{margin-top:auto;display:flex;justify-content:space-between;font-size:12.5px;color:var(--dim)}
+.art .ft span:last-child{color:#fff}
+@media(max-width:1000px){.arts{grid-template-columns:1fr 1fr}}@media(max-width:640px){.arts{grid-template-columns:1fr}}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:50px}
+.plan{padding:30px;display:flex;flex-direction:column;min-height:440px}
+.plan>*{position:relative;z-index:1}
+.plan .nm{font-size:13.5px;color:var(--mute)}
+.plan .tt{font-size:34px;font-weight:300;letter-spacing:-.035em;margin:12px 0 6px}
+.plan .ds{color:var(--dim);font-size:13.5px;padding-bottom:22px;border-bottom:1px solid var(--line2)}
+.plan ul{list-style:none;margin:22px 0;display:grid;gap:11px}
+.plan li{font-size:14px;color:#dcdcdc;padding-left:24px;position:relative}
+.plan li::before{content:"✓";position:absolute;left:0;color:#fff;font-size:12px;top:1px}
+.plan .btn{margin-top:auto;justify-content:center}
+.plan.hl{border-color:#555;background:linear-gradient(180deg,#171717,#0a0a0a)}
+.certs{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px;justify-content:center}
+.certs .chip{font-family:var(--sans);font-size:13.5px;padding:8px 16px;color:#e4e4e4}
+.certs .chip.pg{border-style:dashed;color:var(--dim)}
+@media(max-width:900px){.plans{grid-template-columns:1fr}.plan{min-height:0}}
+
+/* cta + footer */
+.cta-card{background:#fff;color:#000;border-radius:30px;padding:90px 24px;text-align:center}
+.cta-card h2{max-width:640px;margin:0 auto;font-size:clamp(30px,4vw,52px);font-weight:400;letter-spacing:-.035em}
+.cta-card .cta{margin-top:30px}
+.cta-card .btn{background:#000;color:#fff;border-color:#000}.cta-card .btn:hover{background:#222}
+.cta-card .btn.o{background:#fff;color:#000;border-color:#ccc}.cta-card .btn.o:hover{background:#f0f0f0}
+footer{padding:70px 0 34px;margin-top:80px;border-top:1px solid var(--line)}
+.fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px}
+.fg p{color:var(--dim);font-size:13.5px;margin-top:14px;max-width:280px}
+.fg h5{font-size:13px;font-weight:500;margin-bottom:12px;color:var(--mute)}
+.fg a{display:block;font-size:14px;color:#e5e5e5;padding:4px 0}.fg a:hover{color:var(--dim)}
+.fb{display:flex;justify-content:space-between;margin-top:56px;font-size:12.5px;color:var(--dim);flex-wrap:wrap;gap:8px}
+.fb .ok::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#7ee2a0;margin-right:8px}
+@media(max-width:760px){.fg{grid-template-columns:1fr 1fr}}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@keyframes blink{50%{opacity:.2}}@keyframes dash{to{stroke-dashoffset:-24}}@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<nav><div class="in">
+  <a href="#top" class="logo"><svg viewBox="0 0 32 32"><path d="M3 26L16 5l13 21h-7l-6-10-6 10z" fill="#fff"/></svg>SENIRU</a>
+  <div class="links"><a href="#about">About</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#writing">Writing</a><a href="#stack">Stack</a><a class="btn w" href="#contact">Contact</a></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="orb"></div><div class="grain"></div>
+  <div class="wrap">
+    <h1 class="rv">Detection, driven by a fleet of AI agents</h1>
+    <p class="p rv">I'm Seniru Ekanayake. I build multi-agent threat detection and MCP security tooling, shaped by daily SOC work in Sentinel and Google SecOps.</p>
+    <div class="cta rv"><a class="btn w" href="#projects">View projects</a><a class="btn" href="https://github.com/seniru-ekanayake" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="sub rv"><span>MITRE ATT&amp;CK</span><span>MCP</span><span>Google ADK</span><span>Vertex AI</span></div>
+    <div class="console rv">
+      <div class="chead"><i></i><i></i><i></i><span>fishingmails / investigation #0142</span></div>
+      <div class="cbody">
+        <div class="cside"><div class="on">Investigation</div><div>Evidence</div><div>Tools</div><div>Containment</div><div>Audit trail</div><div>Reports</div></div>
+        <div class="cmain"><div id="heroGraph" style="width:100%;max-width:340px"></div></div>
+        <div class="cright"><div class="t">Findings</div>
+          <div class="fnd"><b>SPF / DMARC fail</b><em>high</em></div>
+          <div class="fnd"><b>Lookalike domain</b><em>high</em></div>
+          <div class="fnd"><b>Link sandbox</b><em>medium</em></div>
+          <div class="fnd"><b>Sender history</b><em>low</em></div>
+          <div class="fnd" style="border:0"><b>Containment</b><em>awaiting approval</em></div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about"><div class="wrap">
+  <div class="hrow">
+    <div class="rv"><div class="lab">About</div><h2>The SOC queue checks the alerts.<br>Agents check everything else.</h2></div>
+    <p class="p rv">I work inside live SIEM and EDR queues, then automate the parts that don't scale: correlation, investigation planning, evidence and response.</p>
+  </div>
+  <div class="card cmp rv">
+    <div><h4><span>IN THE SOC QUEUE</span><span>manual</span></h4>
+      <div class="cr">Triage SIEM alerts and EDR endpoints<span>Sentinel · SecOps</span></div>
+      <div class="cr">Investigate intrusion attempts<span>ATT&amp;CK</span></div>
+      <div class="cr">Escalate critical incidents<span>senior analysts</span></div>
+      <div class="cr">Document timelines and remediation<span>SLA</span></div>
+      <div class="cr">Analyse malware and network traffic<span>exploit analysis</span></div></div>
+    <div class="hi"><h4><span>WITH THE AGENTS I BUILD</span><span>automated</span></h4>
+      <div class="cr">Plan and re-plan each investigation step<span>LLM planner</span></div>
+      <div class="cr">Cite evidence for every point of risk<span>explainable</span></div>
+      <div class="cr">Audit tools before agents trust them<span>MCP gate</span></div>
+      <div class="cr">Propose containment, humans approve<span>guardrails</span></div>
+      <div class="cr">Map attack paths on cloud telemetry<span>graph model</span></div></div>
+    <div class="cap">Same discipline, applied twice: first by hand in the queue, then encoded into systems.</div>
+  </div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="built"><div class="wrap">
+  <div class="hrow">
+    <div class="rv"><div class="lab">Approach</div><h2>Built from the ground up for the agentic era</h2></div>
+    <p class="p rv">Agents that read documents, call APIs and install packages create new attack surface. I design for it: audit the tools, explain the verdicts, keep a human on the final call.</p>
+  </div>
+  <div class="fpair">
+    <div class="card fcard rv">
+      <div class="fvis gx g1"><div class="win" style="width:100%;max-width:420px"><div class="wh"><i></i><i></i><i></i><span>agent-tick audit</span></div>
+        <div class="wb"><span class="d">$</span> <span class="a">audit</span> mcp://backup-tool<br><span class="ok">✔</span> static gate passed · entropy normal<br><span class="w">▲</span> description: plain-English exfil chain<br><span class="r">✖</span> dynamic sim: .env → external URL<br><span class="a">verdict: BLOCK</span> <span class="cur"></span></div></div></div>
+      <div class="fcap"><b>Tool-integrity auditing</b><span>Agent TICK catches semantic attacks that signature scanners mark as clean.</span></div>
+    </div>
+    <div class="card fcard rv">
+      <div class="fvis white"><div class="bars">
+        <div class="h"><span>Measured results</span><span>vs. standards</span></div>
+        <div class="bar"><div class="t"><b>Threat detection precision</b><b>83%</b></div><div class="tr"><i data-w="83"></i></div></div>
+        <div class="bar"><div class="t"><b>ISO 27001 / NIST CSF reports</b><b>85%</b></div><div class="tr"><i data-w="85"></i></div></div>
+        <div class="bar"><div class="t"><b>GRC dashboard accuracy</b><b>94%</b></div><div class="tr"><i data-w="94"></i></div></div></div></div>
+      <div class="fcap"><b>Numbers I can stand behind</b><span>Precision and accuracy figures from my detection and compliance projects.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="projects"><div class="wrap">
+  <div class="rv"><div class="lab">Projects</div><h2 style="max-width:620px">Put agents to work across your whole stack</h2></div>
+  <div class="tabrow rv" id="tabrow"></div>
+  <div id="shows" class="rv"></div>
+  <div class="dots" id="dots"></div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="automate"><div class="wrap">
+  <div class="auto">
+    <div class="rv"><div class="lab">Automation</div><h2>Everything an analyst would do, automated</h2>
+      <ul style="margin-top:30px"><li>Plans its own next step from seven read-only tools</li><li>Re-plans after every finding, like an analyst</li><li>Cites the evidence behind every risk point</li><li>Proposes quarantine, session revoke and IOC blocks</li><li>Executes nothing without human approval</li></ul></div>
+    <div class="gx g2 rv"><div class="win"><div class="wh"><i></i><i></i><i></i><span>fishingmails · planner</span></div>
+      <div class="wb"><span class="d">plan</span> <span class="a">dns_spf_dmarc_recon</span><br><span class="d">found</span> SPF softfail, DMARC none<br><span class="d">re-plan</span> <span class="a">link_sandbox</span><br><span class="d">found</span> redirect → credential form<br><span class="d">re-plan</span> <span class="a">cisa_kev_correlate</span><br><span class="d">verdict</span> <span class="r">phishing · 0.94</span><br><span class="d">propose</span> quarantine + IOC block<br><span class="w">awaiting human approval</span> <span class="cur"></span></div></div></div>
+  </div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="experience"><div class="wrap">
+  <div class="rv"><div class="lab">Experience</div><h2>Hands-on, on the front line</h2></div>
+  <div class="xp">
+    <div class="card xc rv"><span class="k">MAY 2026 — PRESENT</span><h3>Cybersecurity Intern</h3><div class="org">Scybers</div>
+      <ul><li>Monitor security events across SIEM platforms (Google SecOps, Microsoft Sentinel), analysing logs to identify and assess threats.</li>
+      <li>Triage SIEM alerts and EDR endpoints; escalate critical incidents to senior analysts.</li>
+      <li>Investigate intrusion attempts; run exploit analysis on suspicious network activity and malware samples.</li>
+      <li>Research threats with MITRE ATT&amp;CK to categorise attack techniques and patterns.</li>
+      <li>Build multi-agent threat detection systems on Google Cloud Platform and Vertex AI.</li></ul></div>
+    <div class="card xc rv"><span class="k">2023 — 2027</span><h3>BSc (Hons) Computer Science</h3><div class="org">University of Wolverhampton · CINEC Campus</div>
+      <ul><li>Software Engineering specialisation.</li><li>Practice-led security: Hack The Box, LetsDefend, CTFs and Atomic Red Team validation.</li><li>ISO 27001-aligned risk assessments and enterprise control hardening.</li></ul></div>
+  </div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="proof"><div class="wrap">
+  <div class="srow">
+    <div class="l rv"><div><div class="lab">Proof, built in</div><h2>Every system ships with tests, metrics and evidence.</h2></div><div><a class="btn sm" href="#projects">See the projects</a></div></div>
+    <div class="three">
+      <div class="card sc rv"><span class="pill">Tested</span><canvas data-sphere="lat"></canvas><div class="big" data-n="275" data-s="">0</div><p>Automated tests in FishingMails, incl. prompt injection and SSRF.</p></div>
+      <div class="card sc rv"><span class="pill">Found</span><canvas data-sphere="scatter"></canvas><div class="big" data-n="165" data-s="">0</div><p>Windows vulnerabilities (45 critical) in the first deployment.</p></div>
+      <div class="card sc rv"><span class="pill">Certified</span><canvas data-sphere="net"></canvas><div class="big" data-n="9" data-s="">0</div><p>Certifications completed or in progress across cloud, SOC and AI.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="writing"><div class="wrap">
+  <h2 class="c rv">Ideas I put into the world</h2>
+  <div class="mason">
+    <a class="pc t gx g1 rv" href="https://lnkd.in/p/geCkPgKH" target="_blank" rel="noopener"><span class="pill">Explainability</span><q>Every point of risk in a verdict should cite its evidence. No black-box scores.</q><small><b>FishingMails</b>LinkedIn post ↗</small></a>
+    <a class="pc m gx g2 rv" href="https://lnkd.in/p/geCkPgKH" target="_blank" rel="noopener"><span class="pill">Human in the loop</span><q>Agents propose containment. Humans approve it.</q><small><b>FishingMails</b>LinkedIn post ↗</small></a>
+    <a class="pc s gx g3 rv" href="https://lnkd.in/p/geCkPgKH" target="_blank" rel="noopener"><span class="pill">Honesty</span><q>Until pilot data exists, I won't invent a number.</q><small><b>MTTR post</b>LinkedIn ↗</small></a>
+    <a class="pc m gx g4 rv" href="https://lnkd.in/p/gb8fcrcw" target="_blank" rel="noopener"><span class="pill">Semantics</span><q>Scanners match signatures. Attackers write plain English. Audit the meaning.</q><small><b>Agent TICK</b>LinkedIn post ↗</small></a>
+    <a class="pc s gx g5 rv" href="https://lnkd.in/p/guBJTzUJ" target="_blank" rel="noopener"><span class="pill">Supply chain</span><q>Verify the package, the owner and the provenance.</q><small><b>Slopsquatting</b>LinkedIn post ↗</small></a>
+    <a class="pc t gx g2 rv" href="https://lnkd.in/p/gTmZtp-p" target="_blank" rel="noopener"><span class="pill">Trust boundary</span><q>The model isn't the only attack surface. What it trusts is.</q><small><b>MCP &amp; agents</b>LinkedIn post ↗</small></a>
+  </div>
+</div></section>
+
+<section id="updates" style="padding-top:20px"><div class="wrap">
+  <div class="uhead rv"><h2>Latest updates</h2><a class="btn sm" href="https://www.linkedin.com/in/seniru-ekanayake/recent-activity/all/" target="_blank" rel="noopener">View all</a></div>
+  <div class="arts" id="artlist"></div>
+</div></section>
+
+<div class="rulew"><div class="rule"></div></div>
+
+<section id="stack"><div class="wrap">
+  <div class="lab c rv" style="text-align:center">Toolkit</div>
+  <h2 class="c rv">The stack behind the work</h2>
+  <div class="plans" id="plans"></div>
+  <div class="certs rv" id="certlist"></div>
+</div></section>
+
+<section id="contact" style="padding:20px 0 0"><div class="wrap">
+  <div class="cta-card rv"><div class="lab" style="color:#666">Contact</div>
+    <h2>Let's build security that thinks ahead.</h2>
+    <div class="cta"><a class="btn" href="mailto:ekanayakeseniru0@gmail.com">Get in touch</a><a class="btn o" href="https://www.linkedin.com/in/seniru-ekanayake/" target="_blank" rel="noopener">LinkedIn</a><a class="btn o" href="https://github.com/seniru-ekanayake" target="_blank" rel="noopener">GitHub</a></div></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="fg">
+    <div><a href="#top" class="logo"><svg viewBox="0 0 32 32" width="22" height="22"><path d="M3 26L16 5l13 21h-7l-6-10-6 10z" fill="#fff"/></svg>SENIRU</a><p>Security detection and agentic AI engineering. Kurunegala, Sri Lanka.</p></div>
+    <div><h5>Work</h5><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#proof">Proof</a></div>
+    <div><h5>Read</h5><a href="#writing">Ideas</a><a href="#updates">Latest updates</a><a href="#stack">Toolkit</a></div>
+    <div><h5>Elsewhere</h5><a href="https://github.com/seniru-ekanayake" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/seniru-ekanayake/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:ekanayakeseniru0@gmail.com">Email</a></div>
+  </div>
+  <div class="fb"><span class="ok">All systems operational</span><span>© 2026 Seniru Ekanayake</span></div>
+</div></footer>
+
+<script>
+const GH="https://github.com/seniru-ekanayake/";
+const PROJECTS=[
+ {tag:"Agentic AI security",name:"Agent TICK",blurb:"Audits MCP servers and skills",repo:"agent-TICK-Capstone-Project",
+  desc:"A security meta-agent that audits MCP servers and Agent Skills before they reach an AI runtime, deployable on Cloud Run. Catches tool poisoning, hidden exfiltration and dynamic-code RCE.",
+  points:["Static gate: Shannon-entropy checks, schema injection scan, threat-DB lookup","Dynamic phase: AST sandbox plus Gemini differential analysis","Adversarial evaluation reported at F1 = 1.0"],
+  stack:["Python","Google ADK","Vertex AI","Cloud Run","MCP"],
+  arch:[["MCP server / Skill"],["Static gate","Threat DB"],["AST sandbox","Gemini diff."],["Risk verdict"]],hot:["Gemini diff."]},
+ {tag:"Email threat investigation",name:"FishingMails",blurb:"Autonomous email investigator",repo:"agentic-email-defense",
+  desc:"An autonomous email investigator: an LLM planner decides each next step, scouts run read-only tools over MCP, and every verdict cites its evidence. Containment needs human approval.",
+  points:["Planner / scout loop that re-plans after every finding","MCP tool servers behind a FastAPI backend, Next.js console","275 automated tests incl. prompt injection and SSRF"],
+  stack:["Python","FastAPI","Next.js","MCP","OpenRouter","Docker"],
+  arch:[["Suspicious email"],["LLM planner"],["Scout agents","MCP tools"],["Verdict + evidence"]],hot:["LLM planner"]},
+ {tag:"AI SOC · Active defense",name:"K.A.R.E.N.",blurb:"AI SOC with active defense",repo:"AI-SOC-Analyst",
+  desc:"Keen Analysis & Rapid Elimination Network: a SOC platform pairing rule-based detection with context-aware Gemini analysis and autonomous threat mitigation.",
+  points:["Async AI analysis decoupled from the detection loop","Events enriched with asset criticality and user baselines","Active defense terminates malicious processes automatically"],
+  stack:["Python","Gemini","Streamlit","SQLite"],
+  arch:[["Network / system events"],["Rule engine"],["Context enrichment"],["Gemini triage","Active defense"],["Dashboard"]],hot:["Gemini triage"]},
+ {tag:"Data loss prevention",name:"Secure GenAI Gateway",blurb:"PII-safe proxy for public LLMs",repo:"secure-ai-gateway",
+  desc:"A privacy-preserving proxy that sanitises PII and custom jargon locally before prompts reach public LLMs, then re-identifies the response. The model never sees real secrets.",
+  points:["PII/SPII masking plus organisation-specific term blacklists","A 'bouncer' blocks prompt injection and oversized inputs","JSON audit log for GDPR / HIPAA / NIST evidence"],
+  stack:["Python","Groq · Llama 3","DLP","Audit logging"],
+  arch:[["User prompt"],["Bouncer"],["PII masker","Audit log"],["Public LLM"],["Re-identify"]],hot:["PII masker"]},
+ {tag:"Infrastructure · Resilience",name:"AWS Failover",blurb:"Multi-region Terraform",repo:"aws-multi-region-failover",
+  desc:"Infrastructure-as-code for a multi-region AWS failover architecture, written in Terraform. Resilience and availability treated as a security property.",
+  points:["Declarative, repeatable multi-region deployment","Health-checked failover between regions"],
+  stack:["Terraform","HCL","AWS"],
+  arch:[["Clients"],["DNS + health checks"],["Primary region","Standby region"]],hot:["DNS + health checks"]},
+];
+const COVER_WORDS=["Email","Threats","Supply chain","Trust","Agents","Models"];
+const ARTICLES=[
+ {title:"Your SOC analyst opens a suspicious email. What if the investigation was already finished?",excerpt:"FishingMails: an autonomous investigator that plans its own next step and cites evidence for every risk point.",date:"Nov 2026",url:"https://lnkd.in/p/geCkPgKH"},
+ {title:"OWAReaper: what if opening an email was enough to lose your mailbox?",excerpt:"A concept agent architecture across the email attack lifecycle.",date:"Oct 2026",url:"https://lnkd.in/p/gbSe9RKq"},
+ {title:"Slopsquatting: your AI can now hallucinate dependencies",excerpt:"Package hallucination rates of 4–6% mean an attacker can register a name an agent will install.",date:"Oct 2026",url:"https://lnkd.in/p/guBJTzUJ"},
+ {title:"The next AI attacks won't target the model — they'll target what it trusts",excerpt:"Why MCP, retrieval and tool integrations move the security boundary.",date:"Jul 2026",url:"https://lnkd.in/p/gTmZtp-p"},
+ {title:"Why traditional code scanners fail against semantic threats",excerpt:"Agent TICK vs. a benign-looking exfiltration chain: 100% malicious, zero blocked keywords.",date:"Jul 2026",url:"https://lnkd.in/p/gb8fcrcw"},
+ {title:"OpenRouter Fusion: the mixture-of-agents pattern as a single API call",excerpt:"Fan a prompt out to multiple models, then synthesise the strongest parts.",date:"Jul 2026",url:"https://lnkd.in/p/gqfzwM7P"},
+];
+const PLANS=[
+ {nm:"Security & SOC",tt:"Detect & respond",ds:"Platforms, practice and core competencies.",li:["Microsoft Sentinel · Google SecOps","Defender for Endpoint · Splunk","Wireshark · Nmap · Metasploit · Burp","Alert triage · incident response","Threat hunting · malware analysis","Hack The Box · LetsDefend · CTFs"],hl:0},
+ {nm:"AI & agents",tt:"Build & secure",ds:"Agentic systems and the frameworks to govern them.",li:["Python · MCP · Google ADK","LangGraph · LangChain · Claude SDK","Vertex AI · Ollama · Hugging Face","MITRE ATT&CK · OWASP Top 10","NIST CSF · ISO 27001 · ISO/IEC 42001","Prompt-injection and SSRF testing"],hl:1},
+ {nm:"Cloud & infra",tt:"Deploy & harden",ds:"Cloud platforms, identity and infrastructure as code.",li:["Google Cloud · Azure · AWS","Terraform · Docker","Active Directory · Group Policy","Microsoft Entra ID","DLP · GRC · compliance evidence","Atomic Red Team · PowerShell"],hl:0},
+];
+const CERTS=[["Google Cybersecurity Professional Certificate"],["Microsoft Azure Fundamentals"],["Splunk Academy — Fundamentals & Junior Analyst"],["Gemini Enterprise Certified Partner Specialist"],["Agentic Coding & Prompt Engineering — DeepLearning.AI"],["EC-Council OSINT Certificate"],["Building with Claude API & Claude on Amazon Bedrock"],["SC-200 Security Operations Analyst — in progress",1],["ISO/IEC 27001:2022 Awareness — in progress",1]];
+
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;"),$=id=>document.getElementById(id);
+function diagram(layers,hot,W=330){
+  const nw=148,nh=34,gy=28,H=layers.length*nh+(layers.length-1)*gy+4;
+  const pos=layers.map((l,i)=>l.map((t,j)=>({t,y:2+i*(nh+gy),x:W/2-(l.length*nw+(l.length-1)*16)/2+j*(nw+16)})));
+  let e="",n="";
+  for(let i=0;i<pos.length-1;i++)for(const a of pos[i])for(const b of pos[i+1]){const x1=a.x+nw/2,y1=a.y+nh,x2=b.x+nw/2,y2=b.y,my=(y1+y2)/2,d=`M${x1},${y1} C${x1},${my} ${x2},${my} ${x2},${y2}`;e+=`<path class="edge" d="${d}"/><path class="flow" d="${d}"/>`}
+  for(const col of pos)for(const p of col){const t=p.t.length>20?p.t.slice(0,19)+"…":p.t;n+=`<g class="nd ${hot.includes(p.t)?'hot':''}"><rect x="${p.x}" y="${p.y}" width="${nw}" height="${nh}" rx="10"/><text x="${p.x+nw/2}" y="${p.y+nh/2+4}">${esc(t)}</text></g>`}
+  return `<svg viewBox="0 0 ${W} ${H}" style="max-width:${W+10}px;margin:0 auto;display:block" role="img" aria-label="Architecture diagram">${e}${n}</svg>`;
+}
+$("heroGraph").innerHTML=diagram([["Suspicious email"],["LLM planner"],["Link sandbox","DNS recon"],["Verdict"]],["LLM planner"],330);
+
+$("tabrow").innerHTML=PROJECTS.map((p,i)=>`<button class="tb${i?'':' on'}" data-i="${i}"><b>${esc(p.name)}</b><span>${esc(p.blurb)}</span></button>`).join("");
+$("shows").innerHTML=PROJECTS.map((p,i)=>`<div class="card show${i?'':' on'}" data-i="${i}">
+ <div class="sinfo"><span class="k">${esc(p.tag)}</span><h3>${esc(p.name)}</h3><p>${esc(p.desc)}</p>
+ <ul>${p.points.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>
+ <div class="chips">${p.stack.map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>
+ <a class="btn w" href="${GH+p.repo}" target="_blank" rel="noopener">View repository ↗</a></div>
+ <div class="sdia gx g${i%5+1}"><div class="win"><div class="wh"><i></i><i></i><i></i><span>architecture · ${esc(p.repo)}</span></div><div class="wb">${diagram(p.arch,p.hot)}</div></div></div></div>`).join("");
+$("dots").innerHTML=PROJECTS.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join("");
+function pick(i){document.querySelectorAll(".tb,.show,.dots i").forEach(x=>{const k=x.dataset.i??[...x.parentElement.children].indexOf(x);x.classList.toggle("on",String(k)===String(i))})}
+document.querySelectorAll(".tb").forEach(t=>t.addEventListener("click",()=>pick(t.dataset.i)));
+
+$("artlist").innerHTML=ARTICLES.map((a,i)=>`<a class="card art rv" href="${a.url}" target="_blank" rel="noopener"><div class="cover gx g${i%5+1}"><span class="pill">LinkedIn</span><span class="big">${COVER_WORDS[i]}</span></div><div class="bd"><h3>${esc(a.title)}</h3><p>${esc(a.excerpt)}</p><div class="ft"><span>${esc(a.date)}</span><span>Read post →</span></div></div></a>`).join("");
+$("plans").innerHTML=PLANS.map(p=>`<div class="card plan${p.hl?' hl':''} rv"><span class="nm">${esc(p.nm)}</span><div class="tt">${esc(p.tt)}</div><div class="ds">${esc(p.ds)}</div><ul>${p.li.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><a class="btn${p.hl?' w':''}" href="#contact">Work with me</a></div>`).join("");
+$("certlist").innerHTML=CERTS.map(c=>`<span class="chip${c[1]?' pg':''}">${esc(c[0])}</span>`).join("");
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");e.target.querySelectorAll("[data-w]").forEach(b=>b.style.width=b.dataset.w+"%");io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll(".rv").forEach((el,i)=>{el.style.transitionDelay=(i%3)*70+"ms";io.observe(el)});
+addEventListener("scroll",()=>{const h=document.documentElement;$("bar").style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%"},{passive:true});
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const n=+e.target.dataset.n,s=e.target.dataset.s;let t0;const f=t=>{t0??=t;const p=Math.min((t-t0)/1500,1);e.target.textContent=Math.round(n*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}),{threshold:.6});
+document.querySelectorAll("[data-n]").forEach(el=>cio.observe(el));
+
+const still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+document.querySelectorAll("canvas[data-sphere]").forEach(cv=>{
+  const mode=cv.dataset.sphere,dpr=Math.min(devicePixelRatio||1,2),S=104;cv.width=cv.height=S*dpr;
+  const g=cv.getContext("2d");g.scale(dpr,dpr);const pts=[],N=mode==="scatter"?260:90;
+  if(mode==="lat"){for(let i=1;i<18;i++){const phi=Math.PI*i/18,n=Math.round(22*Math.sin(phi))+2;for(let j=0;j<n;j++){const th=2*Math.PI*j/n;pts.push([Math.sin(phi)*Math.cos(th),Math.cos(phi),Math.sin(phi)*Math.sin(th)])}}}
+  else{for(let i=0;i<N;i++){const y=1-2*(i+.5)/N,r=Math.sqrt(1-y*y),th=i*2.399963;pts.push([r*Math.cos(th),y,r*Math.sin(th)])}}
+  const edges=[];if(mode==="net"){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){if(Math.hypot(pts[i][0]-pts[j][0],pts[i][1]-pts[j][1],pts[i][2]-pts[j][2])<.55)edges.push([i,j])}}
+  let a=Math.random()*6;
+  (function draw(){g.clearRect(0,0,S,S);a+=.006;const c=Math.cos(a),s=Math.sin(a),R=S*.46,P=pts.map(p=>[S/2+(p[0]*c+p[2]*s)*R,S/2+p[1]*R,-p[0]*s+p[2]*c]);
+    if(mode==="net"){g.strokeStyle="rgba(255,255,255,.14)";g.lineWidth=.6;for(const[i,j]of edges){if(P[i][2]<-.3&&P[j][2]<-.3)continue;g.beginPath();g.moveTo(P[i][0],P[i][1]);g.lineTo(P[j][0],P[j][1]);g.stroke()}}
+    for(const p of P){const d=(p[2]+1)/2;g.fillStyle=`rgba(255,255,255,${.12+d*.8})`;g.beginPath();g.arc(p[0],p[1],mode==="net"?1.1+d*1.4:.6+d*1.1,0,7);g.fill()}
+    if(!still)requestAnimationFrame(draw)})();
+});
+</script>
+</body>
+</html>
